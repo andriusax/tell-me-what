@@ -1,0 +1,29 @@
+{
+  "name": "tell-me-what",
+  "version": "1.0.0",
+  "description": "API to look up the gear used by a specific artist",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andriusax/tell-me-what.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/andriusax/tell-me-what/issues"
+  },
+  "homepage": "https://github.com/andriusax/tell-me-what#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "jest": "^30.3.0",
+    "supertest": "^7.2.2"
+  }
+}
