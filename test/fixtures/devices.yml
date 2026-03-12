@@ -5,11 +5,11 @@ one:
   description: MyText
   price: 1.5
   picture_url: MyString
-  artists: one
+  artist: one
 
 two:
   name: MyString
   description: MyText
   price: 1.5
   picture_url: MyString
-  artists: two
+  artist: two

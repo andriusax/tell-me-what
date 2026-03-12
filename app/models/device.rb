@@ -1,3 +1,3 @@
 class Device < ApplicationRecord
-  belongs_to :artists
+  belongs_to :artist
 end

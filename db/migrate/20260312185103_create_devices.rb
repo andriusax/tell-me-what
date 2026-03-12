@@ -5,7 +5,7 @@ class CreateDevices < ActiveRecord::Migration[8.1]
       t.text :description
       t.float :price
       t.string :picture_url
-      t.references :artists, null: false, foreign_key: true
+      t.references :artist, null: false, foreign_key: true
 
       t.timestamps
     end
