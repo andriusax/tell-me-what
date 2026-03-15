@@ -1,0 +1,16 @@
+<div class="container mt-4">
+  <div class="chat-container border rounded shadow-sm bg-light p-3 d-flex flex-column h-100">
+    <div class="messages-box overflow-auto mb-3 p-2 flex-grow-1 bg-white border rounded">
+        <div class="p-2 rounded bg-secondary text-white d-inline-block">
+          Who's gear are you interested in?
+        </div>
+      </div>
+    <div class="input-area mt-auto">
+      <%= simple_form_for (@chat) do |f| %>
+        <%= f.input :question %>
+
+        <%= f.button :submit, "Send", class: "btn btn-primary px-4" %>
+      <% end %>
+    </div>
+  </div>
+</div>

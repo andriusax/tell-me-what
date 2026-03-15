@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <div class="chat-container border rounded shadow-sm bg-light p-3 d-flex flex-column h-100">
+    <div class="chat-container border rounded bg-light p-3" style="height: 400px; overflow-y: scroll;">
+      <% @messages.each do |message| %>
+        <%# Logic to determine if the message is from the current user %>
+        <% is_mine = message.role == "user" %>
+
+        <div class="d-flex <%= is_mine ? 'justify-content-end' : 'justify-content-start' %> mb-3">
+          <div class="message-box p-3 shadow-sm rounded-3 <%= is_mine ? 'bg-primary text-white' : 'bg-white text-dark border' %>"
+              style="max-width: 75%;">
+
+            <div class="small fw-bold mb-1">
+              <%= is_mine ? "You" : "No you" %>
+            </div>
+
+            <div class="message-content">
+              <%= message.content %>
+            </div>
+
+            <div class="text-end mt-1" style="font-size: 0.75rem; opacity: 0.8;">
+              <%= message.created_at.strftime("%H:%M") %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="input-area mt-auto">
+      <%= simple_form_for (@chat) do |f| %>
+        <%= f.simple_fields_for :messages do |m| %>
+          <%= m.input :content, placeholder: "Tell me..." %>
+          <%= m.input :role, as: :hidden, input_html: { value: 'user' } %>
+        <% end %>
+
+        <%= f.button :submit, "Send", class: "btn btn-primary px-4" %>
+      <% end %>
+    </div>
+  </div>
+</div>

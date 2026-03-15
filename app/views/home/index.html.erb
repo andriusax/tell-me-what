@@ -1,14 +1,28 @@
-<div class="container d-flex flex-column align-items-center">
-  <div class="card mb-2 p-2" style="width: 18rem;">
-    <%= image_tag "https://picsum.photos/200/200", alt: "Le Wagon", width: 200, class: "card-img-top" %>
-    <div class="card-body">
-      <h5 class="card-title">Tell Me What?</h5>
-      <p class="card-text fw-semibold">starting at 4,90$/month</p>
-      <p class="card-text text-secondary">Learn about your favorite artist's gear</p>
+<div class="container-fluid d-flex flex-column align-items-center px-3">
+  <% if user_signed_in? %>
+    <%= link_to "New conversation", new_chat_path, class: "btn btn-outline-dark" %>
+    <% @chats.each do |chat| %>
+      <%= link_to chat_path(chat), class: "text-start w-100 my-2 text-decoration-none" do %>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= chat.question %></h5>
+            <p class="card-text text-secondary"><%= chat.created_at %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <div class="card mb-2 p-2" style="width: 18rem;">
+      <%= image_tag "https://picsum.photos/200/200", alt: "Le Wagon", width: 200, class: "card-img-top" %>
+      <div class="card-body">
+        <h5 class="card-title">Tell Me What?</h5>
+        <p class="card-text fw-semibold">starting at 4,90$/month</p>
+        <p class="card-text text-secondary">Learn about your favorite artist's gear</p>
+      </div>
     </div>
-  </div>
-  <div class="d-flex flex-column">
-    <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-dark btn-lg my-2" %>
-    <%= link_to "Sign In", new_user_session_path, class: "btn btn-outline-dark btn-lg" %>
-  </div>
+    <div class="d-flex flex-column">
+      <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-dark btn-lg my-2" %>
+      <%= link_to "Sign In", new_user_session_path, class: "btn btn-outline-dark btn-lg" %>
+    </div>
+  <% end %>
 </div>
