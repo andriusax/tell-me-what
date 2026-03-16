@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h2 class="mb-4">My Stats</h2>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title text-secondary">Conversations</h5>
+          <p class="display-4 fw-bold"><%= @chats_count %></p>
+          <p class="card-text text-muted">Total chats started</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title text-secondary">Messages Sent</h5>
+          <p class="display-4 fw-bold"><%= @messages_sent_count %></p>
+          <p class="card-text text-muted">Questions asked to the AI</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title text-secondary">AI Responses</h5>
+          <p class="display-4 fw-bold"><%= @ai_responses_count %></p>
+          <p class="card-text text-muted">Responses received from the AI</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
