@@ -1,36 +1,74 @@
 <div class="container mt-4">
   <div class="chat-container border rounded shadow-sm bg-light p-3 d-flex flex-column h-100">
     <div class="chat-container border rounded bg-light p-3" style="height: 400px; overflow-y: scroll;">
-      <% @messages.each do |message| %>
-        <% is_mine = message.role == "user" %>
-
-        <div class="d-flex <%= is_mine ? 'justify-content-end' : 'justify-content-start' %> mb-3">
-          <div class="message-box p-3 shadow-sm rounded-3 <%= is_mine ? 'bg-primary text-white' : 'bg-white text-dark border' %>"
+      <div class="d-flex justify-content-end mb-3">
+          <div class="message-box p-3 shadow-sm rounded-3 bg-secondary text-white"
               style="max-width: 75%;">
 
             <div class="small fw-bold mb-1">
-              <%= is_mine ? "You" : "TMW" %>
+              You
             </div>
 
-            <div class="message-content">
-              <%= message.content %>
+            <% if params[:edit_chat] == 'true' %>
+              <%= simple_form_for @chat do |f| %>
+                <div class="d-flex align-items-center gap-2">
+                  <%= f.input :question, label: false, wrapper: false, input_html: { class: 'form-control-lg' } %>
+                  <%= f.button :submit, "Save", class: "btn btn-outline-light" %>
+                  <%= link_to "Cancel", chat_path(@chat), class: "btn btn-light" %>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="message-content">
+                <%= @chat.question %>
+              </div>
+            <% end %>
+
+            <div class="text-end mt-1" style="font-size: 0.75rem; opacity: 0.8;">
+              <%= @chat.created_at.strftime("%H:%M") %>
+              <%= link_to 'Edit', chat_path(@chat, edit_chat: true), class: "btn btn-outline-light btn-sm" %>
             </div>
+          </div>
+        </div>
+      <% @messages.each do |message| %>
+        <% is_user = message.role == "user" %>
+
+        <div class="d-flex <%= is_user ? 'justify-content-end' : 'justify-content-start' %> mb-3">
+          <div class="message-box p-3 shadow-sm rounded-3 <%= is_user ? 'bg-secondary text-white' : 'bg-white text-dark border' %>"
+              style="max-width: 75%;">
+
+            <div class="small fw-bold mb-1">
+              <%= is_user ? "You" : "TMW" %>
+            </div>
+
+            <%# Edit message form %>
+            <% if params[:edit_message_id].to_i == message.id %>
+              <%= simple_form_for [@chat, message] do |f| %>
+                <%= f.input :content, label: false %>
+                <%= f.button :submit, "Save", class: "btn btn-outline-light btn-sm" %>
+                <%= link_to "Cancel", chat_path(@chat), class: "btn btn-light btn-sm" %>
+              <% end %>
+            <% else %>
+              <div class="message-content">
+                <%= message.content %>
+              </div>
+            <% end %>
 
             <div class="text-end mt-1" style="font-size: 0.75rem; opacity: 0.8;">
               <%= message.created_at.strftime("%H:%M") %>
+              <% if is_user  %>
+                <%= link_to 'Edit', chat_path(@chat, edit_message_id: message.id), class: "btn btn-outline-light btn-sm" %>
+              <% end %>
             </div>
           </div>
         </div>
       <% end %>
     </div>
     <div class="input-area mt-auto">
-      <%= simple_form_for (@chat) do |f| %>
-        <%= f.simple_fields_for :messages do |m| %>
-          <%= m.input :content, placeholder: "Tell me..." %>
-          <%= m.input :role, as: :hidden, input_html: { value: 'user' } %>
-        <% end %>
+      <%= simple_form_for [@chat, @message] do |f| %>
+        <%= f.input :content, placeholder: "Tell me..." %>
+        <%= f.input :role, as: :hidden, input_html: { value: 'user' } %>
 
-        <%= f.button :submit, "Send", class: "btn btn-primary px-4" %>
+        <%= f.button :submit, "Send", class: "btn btn-secondary px-4" %>
       <% end %>
     </div>
   </div>
