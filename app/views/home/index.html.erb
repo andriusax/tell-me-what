@@ -1,4 +1,40 @@
 <h1>HOME PAGE</h1>
+<%= simple_form_for :chat, url: root_path, method: :get do |f| %>
+  <%= f.input :ask_prompt,
+              label: "Which artist do you want to research?",
+              input_html: { value: @question } %>
+  <%= f.button :submit, "Ask" %>
+<% end %>
+
+<% if @artist && @gear %>
+
+  <img src="<%= @artist_image_url %>" alt="<%= @artist["name"] %>">
+  <h1><%= @artist["name"] %></h1>
+  <h3><%= @artist["based_in"] %></h3>
+  <p>Genres:</p>
+
+  <ul>
+    <% @artist["genres"].each do |genre| %>
+    <li><%= genre %></li>
+    <% end %>
+  </ul>
+
+
+  <ul>
+    <% @gear.each_with_index do |gear, index| %>
+      <li>
+        <img src="<%= @gear_img_url[index]["href"] %>" alt="<%= gear["name"] %>">
+        <h3><%= gear["name"] %> </h3>
+        <p>Category: <%= (gear["category"].capitalize) %></p>
+        <p><strong>Description:</strong> <br> <%= gear["description"] %></p>
+        <p>Price: <%= gear["approximate_price_euro"] %></p>
+        <p>Confidence: <%= gear["confidence"] %></p>
+      </li>
+    <% end %>
+  </ul>
+<% elsif @error.present? %>
+  <p><%= @error %></p>
+<% end %>
 
 <% if user_signed_in? %>
   You are signed in as <%= current_user.email %>

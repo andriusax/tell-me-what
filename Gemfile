@@ -29,6 +29,8 @@ gem "solid_queue"
 gem "solid_cable"
 gem "devise"
 
+gem "dotenv-rails", groups: %i[development test]
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
@@ -65,3 +67,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "ruby_llm", "~> 1.2.0"
+gem "simple_form"
