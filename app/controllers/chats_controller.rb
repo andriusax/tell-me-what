@@ -14,9 +14,12 @@ class ChatsController < ApplicationController
     @chat = Chat.new(chat_params)
     @chat.user = current_user
     if @chat.save
-      @chat.messages.create(role: "user", content: @chat.question)
-
-      redirect_to chat_path(@chat)
+      Message.create(
+      chat: @chat,
+      content: @chat.question,
+      role: "user"
+    )
+    redirect_to chat_path(@chat)
     else
       render :new, status: :unprocessable_entity
     end
