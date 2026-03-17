@@ -1,6 +1,6 @@
 <h1>HOME PAGE</h1>
 <%= simple_form_for :chat, url: root_path, method: :get do |f| %>
-  <%= f.input :ask_prompt,
+  <%= f.input :question,
               label: "Which artist do you want to research?",
               input_html: { value: @question } %>
   <%= f.button :submit, "Ask" %>
@@ -18,7 +18,7 @@
     <li><%= genre %></li>
     <% end %>
   </ul>
-
+  <%= @gear %>
 
   <ul>
     <% @gear.each_with_index do |gear, index| %>
@@ -29,7 +29,7 @@
         <h3><%= gear["name"] %> </h3>
         <p>Category: <%= (gear["category"].capitalize) %></p>
         <p><strong>Description:</strong> <br> <%= gear["description"] %></p>
-        <p>Price: <%= gear["approximate_price_euro"] %></p>
+        <p>Price: <%= gear["price"] %></p>
         <p>Confidence: <%= gear["confidence"] %></p>
       </li>
     <% end %>

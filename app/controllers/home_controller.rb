@@ -20,7 +20,7 @@ class HomeController < ApplicationController
         "name": "string",
         "category": "string (e.g. synthesizer, DAW, guitar, microphone and be speciofic about which ones)",
         "description": "string (1-2 sentences on what it is and why this artist uses it)",
-        "approximate_price_euro": "string (e.g. “€3,200 or discontinued - used market ~€800”)",
+        "price": "string (e.g. “€3,200 or discontinued - used market ~€800”)",
         "picture_search_query": "string",
         "confidence": "from 0 to 100%"
       }
@@ -28,7 +28,7 @@ class HomeController < ApplicationController
   }'
 
   def index
-    @question = params.dig("chat", "ask_prompt")
+    @question = params.dig("chat", "question")
     # if params["chat"]
     #   @question = params["chat"]["ask_prompt"]
     # else
