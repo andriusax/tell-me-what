@@ -10,7 +10,7 @@
 
   <img src="<%= @artist_image_url %>" alt="<%= @artist["name"] %>">
   <h1><%= @artist["name"] %></h1>
-  <h3><%= @artist["based_in"] %></h3>
+  <h3><%= @artist["located"] %></h3>
   <p>Genres:</p>
 
   <ul>
@@ -23,7 +23,9 @@
   <ul>
     <% @gear.each_with_index do |gear, index| %>
       <li>
+
         <img src="<%= @gear_img_url[index]["href"] %>" alt="<%= gear["name"] %>">
+
         <h3><%= gear["name"] %> </h3>
         <p>Category: <%= (gear["category"].capitalize) %></p>
         <p><strong>Description:</strong> <br> <%= gear["description"] %></p>

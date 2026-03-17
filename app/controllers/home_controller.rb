@@ -12,10 +12,10 @@ class HomeController < ApplicationController
   {
     "artist": {
       "name": "string",
-      "based_in": "string",
+      "located": "string",
       "genres": ["string"],
     },
-    "gear": [
+    "device": [
       {
         "name": "string",
         "category": "string (e.g. synthesizer, DAW, guitar, microphone and be speciofic about which ones)",
@@ -41,9 +41,9 @@ class HomeController < ApplicationController
       chat = RubyLLM.chat(model: "gpt-4.1").with_instructions(SYSTEM_PROMPT)
       payload = JSON.parse(chat.ask(@question).content)
 
-      if payload["artist"] && payload["gear"]
+      if payload["artist"] && payload["device"]
         @artist = payload["artist"]
-        @gear   = payload["gear"]
+        @gear   = payload["device"]
 
         @artist_image_url = fetch_image(@artist["name"])
         @gear_img_url = @gear.map { |gear| fetch_gear_image(gear["picture_search_query"]) }
@@ -52,9 +52,9 @@ class HomeController < ApplicationController
       end
 
     rescue JSON::ParserError => e
-      @error = "Invalid response from AI: #{e.message}"
+        @error = "Invalid response from AI: #{e.message}"
     rescue => e
-      @error = "Something went wrong: #{e.message}"
+        @error = "Something went wrong: #{e.message}"
     end
   end
 
@@ -72,5 +72,10 @@ class HomeController < ApplicationController
     response = Faraday.get(query)
     data = JSON.parse(response.body)
     data["listings"][0]["photos"][0]["_links"]["full"]
+    # listings = data["listings"]
+    # photos = listings.map { |listing| listing["photos"] }
+    # cleaner = photos.map { |photo| photo }
+  rescue
+    nil
   end
 end
