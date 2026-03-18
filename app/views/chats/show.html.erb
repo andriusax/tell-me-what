@@ -1,11 +1,11 @@
-<div class="container mt-4">
-  <div class="chat-container border rounded shadow-sm bg-light p-3 d-flex flex-column h-100">
-    <div class="chat-container border rounded bg-light p-3" style="height: 400px; overflow-y: scroll;">
+<div class="container">
+  <div class="chat-container border bg-light p-3 d-flex flex-column h-100">
+    <div class="chat-container border bg-white p-3" style="height: 58vh; overflow-y: scroll;">
       <% @messages.each do |message| %>
         <% is_user = message.role == "user" %>
 
         <div class="d-flex <%= is_user ? 'justify-content-end' : 'justify-content-start' %> mb-3">
-          <div class="message-box p-3 shadow-sm rounded-3 <%= is_user ? 'bg-secondary text-white' : 'bg-white text-dark border' %>"
+          <div class="message-box p-3 <%= is_user ? 'bg-light text-dark' : 'bg-white text-dark border' %>"
               style="max-width: 75%;">
 
             <div class="small fw-bold mb-1">
@@ -25,7 +25,7 @@
 
                 <% if message.image_url.present? %>
                   <div class="mt-2">
-                    <%= image_tag message.image_url, class: "img-fluid rounded shadow-sm" %>
+                    <%= image_tag message.image_url, class: "img-fluid" %>
                   </div>
                 <% end %>
               </div>
@@ -41,15 +41,15 @@
         </div>
       <% end %>
     </div>
-    <div class="input-area mt-auto">
+    <div class="input-area mt-auto ">
       <%= simple_form_for [@chat, @message] do |f| %>
         <%= f.input :content, placeholder: "Tell me..." %>
         <%= f.input :role, as: :hidden, input_html: { value: 'user' } %>
-
-        <%= f.button :submit, class: "btn btn-secondary px-4", id: "send-btn" do %>
-          <span id="btn-text">Send</span>
-          <span id="btn-spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-        <% end %>
+        <div class="d-flex justify-content-end">
+          <%= f.button :submit do %>
+            <i class="fa-solid fa-paper-plane"></i>
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>

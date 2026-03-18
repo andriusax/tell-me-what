@@ -1,6 +1,6 @@
   <% if user_signed_in? %>
     <nav class="navbar navbar-expand-md navbar-light justify-content-between">
-      <p class="navbar-brand ms-3">Tell Me What?</p>
+      <%= image_tag "tmw.png", style: "width: 4rem;", class: "ms-t" %>
       <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -23,7 +23,7 @@
       </div>
     </nav>
   <% else %>
-    <div class="container-fluid mt-4">
-      <p class="text-center navbar-brand">Tell Me What?</p>
+    <div class="container-fluid text-center mt-4">
+      <%= image_tag "tmw.png", class: "w-25" %>
     </div>
   <% end %>
