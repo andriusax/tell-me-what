@@ -1,0 +1,11 @@
+ {
+  "message_type": "description",
+  "message": "Stevie Wonder is an iconic American singer, songwriter, multi-instrumentalist, and producer. Born in 1950 in Saginaw, Michigan, he is known for his pioneering work in soul, R&B, funk, and pop music. Blind since infancy, Wonder emerged as a child prodigy and became one of Motown's most successful artists, crafting timeless classics like 'Superstition,' 'Isn't She Lovely,' and 'Sir Duke.' His innovative use of synthesizers and electronic instruments helped shape the sound of modern music, earning him numerous Grammy Awards and global acclaim.",
+  "artist": {
+    "name": "Stevie Wonder",
+    "located": "USA",
+    "genres": ["Soul", "R&B", "Funk", "Pop"],
+    "picture_search_query": "Stevie Wonder"
+  },
+  "device": []
+}
