@@ -35,7 +35,9 @@ class MessagesController < ApplicationController
   - Display all the possible gear you can find about an artist.
   - The artist block is optional — only include it when the question is
     about a specific artist.
-
+  - "artist" should always be an array, even when there is only one artist.
+  - The artist block is optional. If there is no specific artist, set "artist" to null,
+  not an empty array. Artist must always be a single object, never an array.
 
   Use this exact schema:
   {
@@ -80,7 +82,13 @@ class MessagesController < ApplicationController
         payload = JSON.parse(response.content)
 
 
-        payload["artist"]["image_url"] = fetch_image(payload.dig("artist", "picture_search_query")) if payload["artist"].present?
+        if payload["artist"].is_a?(Hash)
+          payload["artist"]["image_url"] = fetch_image(payload.dig("artist", "picture_search_query"))
+        elsif payload["artist"].is_a?(Array)
+          payload["artist"].each do |artist|
+            artist["image_url"] = fetch_image(artist["picture_search_query"])
+          end
+        end
 
         payload["device"]&.each do |device|
           device["image_url"] = fetch_gear_image(device["picture_search_query"])
