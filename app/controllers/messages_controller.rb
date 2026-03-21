@@ -74,8 +74,7 @@ class MessagesController < ApplicationController
     if @message.save
       begin
         ruby_llm_chat = RubyLLM.chat(model: "gpt-4.1")
-        Rails.logger.info "=== Provider: #{ruby_llm_chat.model.provider}"
-        ruby_llm_chat.with_instructions(SYSTEM_PROMPT)
+        ruby_llm_chat.with_instructions(instructions)
 
         response = ruby_llm_chat.ask(@message.content)
 
@@ -127,6 +126,14 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:content, :role)
+  end
+
+  def chat_context
+    "Here is the context of the chat: #{@chat.question}"
+  end
+
+  def instructions
+    [ SYSTEM_PROMPT, chat_context ].compact.join("\n\n")
   end
 
   def fetch_image(query)
