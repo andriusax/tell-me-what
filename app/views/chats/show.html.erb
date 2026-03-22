@@ -1,68 +1,52 @@
-<div class="container">
-  <div class="chat-container border bg-light p-3 d-flex flex-column h-100">
-    <div class="chat-container border bg-white p-3" style="height: 58vh; overflow-y: scroll;">
-      <% @messages.each do |message| %>
-        <% is_user = message.role == "user" %>
+<div class="chat-container bg-white p-3 d-flex flex-column h-100">
+  <div class="chat-container bg-white p-3" style="height: 56vh; overflow-y: scroll;">
+    <% @messages.each do |message| %>
+      <% is_user = message.role == "user" %>
 
-        <div class="d-flex <%= is_user ? 'justify-content-end' : 'justify-content-start' %> mb-3">
-          <div class="message-box p-3 <%= is_user ? 'bg-light text-dark' : 'bg-white text-dark border' %>"
-              style="max-width: 75%;">
+      <div class="d-flex <%= is_user ? 'justify-content-end' : 'justify-content-start' %> mb-3">
+        <div class="message-box p-3 <%= is_user ? 'bg-white text-dark' : 'bg-white text-dark' %>"
+            style="max-width: 75%;">
 
-            <div class="small fw-bold mb-1">
-              <%= is_user ? "You" : "TMW" %>
-            </div>
+          <div class="small fw-bold mb-1">
+            <%= is_user ? "You" : "TMW" %>
+          </div>
 
-            <%# Edit message form %>
-            <% if params[:edit_message_id].to_i == message.id %>
-              <%= simple_form_for [@chat, message] do |f| %>
-                <%= f.input :content, label: false %>
-                <%= f.button :submit, "Save", class: "btn btn-outline-light btn-sm" %>
-                <%= link_to "Cancel", chat_path(@chat), class: "btn btn-light btn-sm" %>
-              <% end %>
-            <% else %>
-              <div class="message-content">
-                <%= simple_format(message.content) %>
-
-                <% if message.image_url.present? %>
-                  <div class="mt-2">
-                    <%= image_tag message.image_url, class: "img-fluid" %>
-                  </div>
-                <% end %>
-              </div>
+          <%# Edit message form %>
+          <% if params[:edit_message_id].to_i == message.id %>
+            <%= simple_form_for [@chat, message] do |f| %>
+              <%= f.input :content, label: false %>
+              <%= f.button :submit, "Save", class: "btn btn-outline-white btn-sm" %>
+              <%= link_to "Cancel", chat_path(@chat), class: "btn btn-white btn-sm" %>
             <% end %>
+          <% else %>
+            <div class="message-content">
+              <%= simple_format(message.content) %>
 
-            <div class="text-end mt-1" style="font-size: 0.75rem; opacity: 0.8;">
-              <%= message.created_at.strftime("%H:%M") %>
-              <% if is_user  %>
-                <%= link_to 'Edit', chat_path(@chat, edit_message_id: message.id), class: "btn btn-outline-light btn-sm" %>
+              <% if message.image_url.present? %>
+                <div class="mt-2">
+                  <%= image_tag message.image_url, class: "img-fluid" %>
+                </div>
               <% end %>
             </div>
+          <% end %>
+
+          <div class="text-end mt-1" style="font-size: 0.75rem; opacity: 0.8;">
+            <%= message.created_at.strftime("%H:%M") %>
+            <% if is_user  %>
+              <%= link_to 'Edit', chat_path(@chat, edit_message_id: message.id), class: "btn btn-outline-white btn-sm" %>
+            <% end %>
           </div>
         </div>
-      <% end %>
-    </div>
-    <div class="input-area mt-auto ">
-      <%= simple_form_for [@chat, @message] do |f| %>
-        <%= f.input :content, placeholder: "Tell me..." %>
-        <%= f.input :role, as: :hidden, input_html: { value: 'user' } %>
-        <div class="d-flex justify-content-end">
-          <%= f.button :submit do %>
-            <i class="fa-solid fa-paper-plane"></i>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="input-area border border-secondary rounded p-1 mb-4 mx-2 fixed-bottom">
+    <%= simple_form_for [@chat, @message] do |f| %>
+      <%= f.input :content, input_html: { class: "bg-white py-0 border border-0 mb-0" }, label: false, placeholder: "What would you like to know?" %>
+      <%= f.input :role, as: :hidden, input_html: { value: 'user' } %>
+      <div class="d-flex justify-content-end">
+        <%= f.button :submit, '⏎', class: "fs-3 mt-0 text-secondary px-2 bg-white py-0 border border-secondary rounded-circle" %>
+      </div>
+    <% end %>
   </div>
 </div>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form');
-    const btnText = document.getElementById('btn-text');
-    const btnSpinner = document.getElementById('btn-spinner');
-
-    form.addEventListener('submit', () => {
-      btnText.classList.add('d-none');
-      btnSpinner.classList.remove('d-none');
-    });
-  });
-</script>

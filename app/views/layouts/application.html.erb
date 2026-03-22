@@ -34,12 +34,13 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-light">
+  <body class="bg-white">
     <header>
       <%= render "shared/navbar" %>
     </header>
-
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
 
     <%= render "shared/flashes" %>
 
