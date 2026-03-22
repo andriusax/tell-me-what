@@ -9,7 +9,7 @@
       <%= simple_form_for (@chat) do |f| %>
         <%= f.input :question, input_html: { class: "bg-white py-0 border border-0 mb-0" }, label: false, placeholder: "What would you like to know?" %>
         <div class="d-flex justify-content-end">
-          <%= f.button :submit, "⏎", class: "fs-3 mt-0 text-secondary px-2 bg-white py-0 border border-secondary rounded-circle" %>
+          <%= f.button :submit, "→", class: "arrow-btn" %>
         </div>
       <% end %>
     </div>
