@@ -1,4 +1,4 @@
-<div class="d-flex flex-column align-items-center">
+<div class="d-flex flex-column align-items-center w-100" style="margin-top: 10vh;">
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
@@ -12,13 +12,13 @@
     </div>
 
     <% if devise_mapping.rememberable? %>
-      <div class="field">
+      <div class="field mb-5">
         <p class="my-0"><%= f.check_box :remember_me %></p>
         <p><%= f.label :remember_me %></p>
       </div>
     <% end %>
 
-    <div class="actions d-flex flex-column align-items-center">
+    <div class="actions actions d-grid gap-3 mt-5">
       <%= f.submit "Log in", class: "btn btn-dark btn-lg my-2" %>
       <%= render "devise/shared/links" %>
     </div>

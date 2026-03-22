@@ -1,15 +1,16 @@
 <div class="container mt-4">
-  <div class="chat-container border rounded shadow-sm bg-light p-3 d-flex flex-column h-100">
-    <div class="messages-box overflow-auto mb-3 p-2 flex-grow-1 bg-white border rounded">
-        <div class="p-2 rounded bg-secondary text-white d-inline-block">
+  <div class="chat-container bg-white p-3 d-flex flex-column h-100">
+    <div class="chat-container bg-white p-3" style="height: 56vh; overflow-y: scroll;">
+        <div class="justify-content-start mb-3">
           Who's gear are you interested in?
         </div>
       </div>
-    <div class="input-area mt-auto">
+    <div class="input-area border border-secondary rounded p-1 mb-4 mx-2 fixed-bottom">
       <%= simple_form_for (@chat) do |f| %>
-        <%= f.input :question %>
-
-        <%= f.button :submit, "Send", class: "btn btn-primary px-4" %>
+        <%= f.input :question, input_html: { class: "bg-white py-0 border border-0 mb-0" }, label: false, placeholder: "What would you like to know?" %>
+        <div class="d-flex justify-content-end">
+          <%= f.button :submit, "⏎", class: "fs-3 mt-0 text-secondary px-2 bg-white py-0 border border-secondary rounded-circle" %>
+        </div>
       <% end %>
     </div>
   </div>
