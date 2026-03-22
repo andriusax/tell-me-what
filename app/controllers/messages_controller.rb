@@ -99,6 +99,7 @@ class MessagesController < ApplicationController
           role: "TMW",
           content: content
         )
+
         # rescue => e
         #   Rails.logger.error "AI error: #{e.message}"
       end
