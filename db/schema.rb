@@ -64,6 +64,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_19_105050) do
     t.bigint "chat_id", null: false
     t.text "content"
     t.datetime "created_at", null: false
+    t.string "image_url"
     t.string "message_type"
     t.string "role"
     t.datetime "updated_at", null: false
