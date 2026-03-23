@@ -1,0 +1,7 @@
+<%= turbo_stream.append "chat-scroll-container" do %>
+  <%= render "messages/messages", messages: @chat.messages.last(2) %>
+<% end %>
+
+<%= turbo_stream.update "submit-form" do %>
+  <%= render "messages/form", message: Message.new, chat: @chat  %>
+<% end %>

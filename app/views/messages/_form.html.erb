@@ -1,0 +1,6 @@
+<%= simple_form_for [chat, message] do |f| %>
+  <%= f.input :content, placeholder: "Tell me..." %>
+  <%= f.input :role, as: :hidden, input_html: { value: 'user' } %>
+
+  <%= f.button :submit, "Send", class: "btn btn-secondary px-4", data: { action: "click->chat-scroll#insertLoader"} %>
+<% end %>
