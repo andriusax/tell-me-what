@@ -3,7 +3,7 @@ class Message < ApplicationRecord
 
   MAX_USER_MESSAGES = 10
 
-  after_create :enforce_message_limit, if: -> { role == "user"}
+  after_create :enforce_message_limit, if: -> { role == "user" }
 
   private
 
