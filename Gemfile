@@ -69,3 +69,4 @@ end
 gem "simple_form"
 
 gem "ruby_llm", "~> 1.14"
+gem "dotenv-rails"
