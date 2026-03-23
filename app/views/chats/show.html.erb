@@ -2,8 +2,8 @@
   <h1><%= @chat.question %></h1>
   <div class="chat-container border rounded shadow-sm bg-light p-3 d-flex flex-column h-100">
     <div class="chat-container border rounded bg-light p-3" style="height: 400px; overflow-y: scroll;"
-         id="chat-scroll-container" data-chat-scroll-target="container" data-action="turbo:render->chat-scroll#scrollBottom">
-      
+        id="chat-scroll-container" data-chat-scroll-target="container" data-action="turbo:render->chat-scroll#scrollBottom">
+
         <%= render "messages/messages", messages: @messages %>
     </div>
     <div class="input-area mt-auto" id="submit-form">
