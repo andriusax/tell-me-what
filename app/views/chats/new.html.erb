@@ -7,9 +7,12 @@
     </div>
     <div class="input-area mt-auto">
       <%= simple_form_for @chat do |f| %>
-        <%= f.input :question, label: false, placeholder: "Ask me What?" %>
-        <%= f.button :submit, "Send", class: "btn btn-primary px-4" %>
+        <%= f.input :question,input_html: { class: "bg-white py-0 border border-0 mb-0" }, label: false, placeholder: "Ask me What?" %>
+        <div class="d-flex justify-content-end">
+          <%= f.button :submit, "Send", class: "arrow-btn" %>
+        </div>
       <% end %>
+      
     </div>
   </div>
 </div>

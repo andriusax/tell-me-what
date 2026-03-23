@@ -104,4 +104,17 @@ class MessagesController < ApplicationController
       @ruby_llm_chat.add_message(message)
     end
   end
+
+  def save_ai_response(user_input)
+    # your AI API call should go here
+    raw_response = '{ "text": "I found a great photo of Paris for you!", "image_url": "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=500" }'
+    data = JSON.parse(raw_response)
+
+    Message.create(
+    chat: @chat,
+    content: data["text"],
+    image_url: data["image_url"],
+    role: "assistant"
+    )
+  end
 end
