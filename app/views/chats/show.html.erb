@@ -23,17 +23,16 @@
 
                 <%# AI ANSWER STARTS HERE %>
                 <% payload = JSON.parse(message.content) %>
-
+                  <%= payload %> <br>
                 <%# DESCRIPTION %>
                 <% if payload["message_type"] == "description" %>
                   <div class="message-content">
 
-                  <% if payload["artist"].is_a?(Hash) && payload["artist"].present? %>
+
                     <% if payload.dig("artist", "image_url").present? %>
                       <img src="<%= payload.dig("artist", "image_url") %>" alt="<%= payload.dig("artist", "name") %>">
                     <% end %>
-                    <h1><%= payload.dig("artist", "name") %></h1>
-                  <% end %>
+
 
                   <h1><%= payload.dig("artist", "name") %></h1> <br>
                   <%= payload.dig("artist", "located") %> <br>
@@ -49,7 +48,9 @@
                     <% if payload["device"].present? %>
                       <% payload["device"].each do |item| %>
                         <li>
-                          <img src="<%= item["image_url"] %>" alt="<%= item["name"] %>"> <br>
+                          <% if item["image_url"].present? %>
+                            <img src="<%= item["image_url"] %>" alt="<%= item["name"] %>"> <br>
+                          <% end %>
                           <strong><%= item["name"] %></strong> <br>
                           <%= item["description"] %> <br>
                           <%= item["price"] %> <br>
@@ -62,6 +63,20 @@
                   <%# CARDS %>
             <% elsif payload["message_type"] == "cards" %>
 
+                  <% if payload.dig("artist", "image_url").present? %>
+                      <img src="<%= payload.dig("artist", "image_url") %>" alt="<%= payload.dig("artist", "name") %>">
+                    <% end %>
+
+
+                  <h1><%= payload.dig("artist", "name") %></h1> <br>
+                  <%= payload.dig("artist", "located") %> <br>
+                  <% if payload.dig("artist", "genres").present? %>
+                    <ul>
+                      <% payload.dig("artist", "genres").each do |genre| %>
+                        <li><%= genre %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
                   <%= payload["message"] %>
                   <ul>
                     <% payload["device"].each do |item| %>
@@ -83,43 +98,15 @@
                 <% payload["device"]&.each do |item| %>
                   <li>
                     <strong><%= item["name"] %></strong><br>
+                    <% if item["image_url"] %>
+                      <img src="<%= item["image_url"] %>" alt="<%= item["name"] %>"> <br>
+                    <% end %>
                     <%= item["description"] %><br>
                     <%= item["price"] %><br>
                     Confidence: <%= item["confidence"] %>
                   </li>
                 <% end %>
               </ul>
-
-              <% if payload["artist"].is_a?(Hash) %>
-                <h1><%= payload["artist"]["name"] %></h1>
-                <% if payload["artist"]["image_url"].present? %>
-                  <img src="<%= payload["artist"]["image_url"] %>" alt="<%= payload["artist"]["name"] %>">
-                <% end %>
-                <p><%= payload["artist"]["located"] %></p>
-                <ul>
-                  <% payload["artist"]["genres"]&.each do |genre| %>
-                    <li><%= genre %></li>
-                  <% end %>
-                </ul>
-
-              <% elsif payload["artist"].is_a?(Array) %>
-                <ul>
-                  <% payload["artist"].each do |artist| %>
-                    <li>
-                      <h1><%= artist["name"] %></h1>
-                      <% if artist["image_url"].present? %>
-                        <img src="<%= artist["image_url"] %>" alt="<%= artist["name"] %>">
-                      <% end %>
-                      <p><%= artist["located"] %></p>
-                      <ul>
-                        <% artist["genres"]&.each do |genre| %>
-                          <li><%= genre %></li>
-                        <% end %>
-                      </ul>
-                    </li>
-                  <% end %>
-                </ul>
-              <% end %>
             <% end %>
                 <div class="text-end mt-1" style="font-size: 0.75rem; opacity: 0.8;">
                   <%= message.created_at.strftime("%H:%M") %>

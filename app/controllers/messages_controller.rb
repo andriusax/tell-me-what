@@ -30,14 +30,13 @@ class MessagesController < ApplicationController
   Follow these rules strictly:
   - Include all gear you can find.
   - Set confidence as a percentage from 0 to 100.
-  - If the artist is unknown or you have no gear data for them, return the
-    JSON with an "error" field explaining this — do not fabricate information.
+  - If the artist is unknown or you have no gear data for them, do not fabricate information.
   - Display all the possible gear you can find about an artist.
   - The artist block is optional — only include it when the question is
     about a specific artist.
-  - "artist" should always be an array, even when there is only one artist.
   - The artist block is optional. If there is no specific artist, set "artist" to null,
   not an empty array. Artist must always be a single object, never an array.
+  - If you already have in your memory info about artist, please do not generate it again.
 
   Use this exact schema:
   {
