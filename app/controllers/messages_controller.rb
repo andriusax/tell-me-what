@@ -72,13 +72,14 @@ class MessagesController < ApplicationController
 
     if @message.save
       begin
-        ruby_llm_chat = RubyLLM.chat(model: "gpt-4.1")
-        ruby_llm_chat.with_instructions(instructions)
+        @ruby_llm_chat = RubyLLM.chat(model: "gpt-4.1")
+        @ruby_llm_chat.with_instructions(instructions)
 
-        response = ruby_llm_chat.ask(@message.content)
+        build_chat_history
+
+        response = @ruby_llm_chat.ask(@message.content)
 
         payload = JSON.parse(response.content)
-
 
         if payload["artist"].is_a?(Hash)
           payload["artist"]["image_url"] = fetch_image(payload.dig("artist", "picture_search_query"))
@@ -151,5 +152,11 @@ class MessagesController < ApplicationController
     data.dig("originalimage", "source")
   rescue
     "https://placehold.co/300x300?text=#{URI.encode_www_form_component(gear_name)}"
+  end
+
+  def build_chat_history
+    @chat.messages do |message|
+      @ruby_llm_chat.add_message(message)
+    end
   end
 end
