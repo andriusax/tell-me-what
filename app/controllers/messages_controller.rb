@@ -71,11 +71,7 @@ class MessagesController < ApplicationController
   end
 
   def message_params
-    if params[:message].present?
-      params.require(:message).permit(:content, :role)
-    else
-      {}
-    end
+    params.require(:message, {}).permit(:content, :role)
   end
 
   def chat_context
