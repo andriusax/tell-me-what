@@ -1,6 +1,6 @@
 <div class="container-fluid d-flex flex-column align-items-center px-3">
   <% if user_signed_in? %>
-    <%= link_to "New conversation", new_chat_path, class: "btn btn-outline-dark" %>
+    <%= link_to "New conversation", new_chat_path, class: "btn btn-outline-dark mb-1" %>
     <% @chats.each do |chat| %>
       <%= link_to chat_path(chat), class: "text-start w-100 my-2 text-decoration-none" do %>
         <div class="card">

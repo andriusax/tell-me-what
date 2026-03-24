@@ -1,12 +1,24 @@
-<div class="container mt-4" data-controller="chat-scroll">
-  <h1><%= @chat.question %></h1>
-  <div class="chat-container border rounded shadow-sm bg-light p-3 d-flex flex-column h-100">
-    <div class="chat-container border rounded bg-light p-3" style="height: 400px; overflow-y: scroll;"
+<div class="container" data-controller="chat-scroll edit-title">
+  <div data-edit-title-target="display" class="d-flex align-items-center">
+    <h1><%= @chat.question %></h1>
+    <button class="mx-2 btn btn-sm btn-light" data-action="click->edit-title#toggle">Edit</button>
+  </div>
+
+  <div data-edit-title-target="form" class="d-none">
+    <%= form_with model: @chat, class: "d-flex gap-2" do |f| %>
+      <%= f.text_field :question, class: "form-control form-control-lg" %>
+      <%= f.submit "Save", class: "btn btn-primary" %>
+      <button type="button" class="btn btn-link" data-action="click->edit-title#toggle">Cancel</button>
+    <% end %>
+  </div>
+
+  <div class="chat-container bg-white p-3 d-flex flex-column h-100">
+    <div class="chat-container bg-white p-3" style="height: 53vh; overflow-y: scroll;"
         id="chat-scroll-container" data-chat-scroll-target="container" data-action="turbo:render->chat-scroll#scrollBottom">
 
         <%= render "messages/messages", messages: @messages %>
     </div>
-    <div class="input-area mt-auto" id="submit-form">
+    <div class="input-area bg-white border border-secondary rounded p-2 mb-2 mx-2 fixed-bottom" style="height: 15%" id="submit-form">
       <%= render "messages/form", message: @message, chat: @chat %>
     </div>
   </div>

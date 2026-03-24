@@ -1,6 +1,7 @@
 <%= simple_form_for [chat, message] do |f| %>
-  <%= f.input :content, placeholder: "Tell me..." %>
+  <%= f.input :content, placeholder: "Tell me...", input_html: { class: "fs-5 bg-white pt-1 border border-0 mb-0" }, label: false %>
   <%= f.input :role, as: :hidden, input_html: { value: 'user' } %>
-
-  <%= f.button :submit, "➝", class: "arrow-btn", data: { action: "click->chat-scroll#insertLoader"} %>
+  <div class="d-flex justify-content-end">
+    <%= f.button :submit, "➜", class: "arrow-btn", data: { action: "click->chat-scroll#insertLoader"} %>
+  </div>
 <% end %>
