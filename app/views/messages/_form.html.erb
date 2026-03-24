@@ -1,7 +1,9 @@
-<%= simple_form_for [chat, message] do |f| %>
-  <%= f.input :content, placeholder: "Tell me...", input_html: { class: "fs-5 bg-white pt-1 border border-0 mb-0" }, label: false %>
-  <%= f.input :role, as: :hidden, input_html: { value: 'user' } %>
-  <div class="d-flex justify-content-end">
-    <%= f.button :submit, "➜", class: "arrow-btn", data: { action: "click->chat-scroll#insertLoader"} %>
-  </div>
-<% end %>
+<div class="input-area bg-white border rounded p-2 m-4 fixed-bottom">
+  <%= simple_form_for [chat, message] do |f| %>
+    <%= f.input :content, placeholder: "Tell me...", input_html: { class: "bg-white py-0 border border-0 mb-0" }, label: false %>
+    <%= f.input :role, as: :hidden, input_html: { value: 'user' } %>
+    <div class="d-flex justify-content-end">
+      <%= f.button :submit, "➜", class: "arrow-btn", data: { action: "click->chat-scroll#insertLoader"} %>
+    </div>
+  <% end %>
+</div>
