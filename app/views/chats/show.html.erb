@@ -1,52 +1,25 @@
-<div class="chat-container bg-white p-3 d-flex flex-column h-100">
-  <div class="chat-container bg-white p-3" style="height: 56vh; overflow-y: scroll;">
-    <% @messages.each do |message| %>
-      <% is_user = message.role == "user" %>
+<div class="container" data-controller="chat-scroll edit-title">
+  <div data-edit-title-target="display" class="d-flex align-items-center">
+    <h1><%= @chat.question %></h1>
+    <button class="mx-2 btn btn-sm btn-light" data-action="click->edit-title#toggle">Edit</button>
+  </div>
 
-      <div class="d-flex <%= is_user ? 'justify-content-end' : 'justify-content-start' %> mb-3">
-        <div class="message-box p-3 <%= is_user ? 'bg-white text-dark' : 'bg-white text-dark' %>"
-            style="max-width: 75%;">
-
-          <div class="small fw-bold mb-1">
-            <%= is_user ? "You" : "TMW" %>
-          </div>
-
-          <%# Edit message form %>
-          <% if params[:edit_message_id].to_i == message.id %>
-            <%= simple_form_for [@chat, message] do |f| %>
-              <%= f.input :content, label: false %>
-              <%= f.button :submit, "Save", class: "btn btn-outline-white btn-sm" %>
-              <%= link_to "Cancel", chat_path(@chat), class: "btn btn-white btn-sm" %>
-            <% end %>
-          <% else %>
-            <div class="message-content">
-              <%= simple_format(message.content) %>
-
-              <% if message.image_url.present? %>
-                <div class="mt-2">
-                  <%= image_tag message.image_url, class: "img-fluid" %>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
-
-          <div class="text-end mt-1" style="font-size: 0.75rem; opacity: 0.8;">
-            <%= message.created_at.strftime("%H:%M") %>
-            <% if is_user  %>
-              <%= link_to 'Edit', chat_path(@chat, edit_message_id: message.id), class: "btn btn-outline-white btn-sm" %>
-            <% end %>
-          </div>
-        </div>
-      </div>
+  <div data-edit-title-target="form" class="d-none">
+    <%= form_with model: @chat, class: "d-flex gap-2" do |f| %>
+      <%= f.text_field :question, class: "form-control form-control-lg" %>
+      <%= f.submit "Save", class: "btn btn-primary" %>
+      <button type="button" class="btn btn-link" data-action="click->edit-title#toggle">Cancel</button>
     <% end %>
   </div>
-  <div class="input-area border border-secondary rounded p-1 mb-4 mx-2 fixed-bottom">
-    <%= simple_form_for [@chat, @message] do |f| %>
-      <%= f.input :content, input_html: { class: "bg-white py-0 border border-0 mb-0" }, label: false, placeholder: "What would you like to know?" %>
-      <%= f.input :role, as: :hidden, input_html: { value: 'user' } %>
-      <div class="d-flex justify-content-end">
-        <%= f.button :submit, '→', class: "arrow-btn" %>
-      </div>
-    <% end %>
+
+  <div class="chat-container bg-white p-3 d-flex flex-column h-100">
+    <div class="chat-container bg-white p-3" style="height: 53vh; overflow-y: scroll;"
+        id="chat-scroll-container" data-chat-scroll-target="container" data-action="turbo:render->chat-scroll#scrollBottom">
+
+        <%= render "messages/messages", messages: @messages %>
+    </div>
+    <div class="input-area bg-white border border-secondary rounded p-2 mb-2 mx-2 fixed-bottom" style="height: 15%" id="submit-form">
+      <%= render "messages/form", message: @message, chat: @chat %>
+    </div>
   </div>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_17_213415) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_23_124435) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -51,20 +51,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_213415) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "messagaes", force: :cascade do |t|
-    t.bigint "chat_id", null: false
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.string "role"
-    t.datetime "updated_at", null: false
-    t.index ["chat_id"], name: "index_messagaes_on_chat_id"
-  end
-
   create_table "messages", force: :cascade do |t|
     t.bigint "chat_id", null: false
     t.text "content"
     t.datetime "created_at", null: false
     t.string "image_url"
+    t.string "message_type"
     t.string "role"
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id"
@@ -86,6 +78,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_213415) do
   add_foreign_key "devices", "artists"
   add_foreign_key "favorites", "devices"
   add_foreign_key "favorites", "users"
-  add_foreign_key "messagaes", "chats"
   add_foreign_key "messages", "chats"
 end

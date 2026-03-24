@@ -1,17 +1,21 @@
 <div class="container mt-4">
   <div class="chat-container bg-white p-3 d-flex flex-column h-100">
-    <div class="chat-container bg-white p-3" style="height: 56vh; overflow-y: scroll;">
-        <div class="justify-content-start mb-3">
-          Who's gear are you interested in?
+    <div class="chat-container bg-white d-flex justify-content-start" style="height: 56vh; overflow-y: scroll;">
+      <div class="message-box bg-white text-dark">
+        <div class="small fw-bold mb-1">
+          "TMW"
         </div>
+        Tell me What?
       </div>
-    <div class="input-area border border-secondary rounded p-1 mb-4 mx-2 fixed-bottom">
-      <%= simple_form_for (@chat) do |f| %>
-        <%= f.input :question, input_html: { class: "bg-white py-0 border border-0 mb-0" }, label: false, placeholder: "What would you like to know?" %>
+    </div>
+    <div class="input-area border border-secondary rounded p-2 m-4 fixed-bottom">
+      <%= simple_form_for @chat do |f| %>
+        <%= f.input :question,input_html: { class: "bg-white py-0 border border-0 mb-0" }, label: false, placeholder: "Ask me about musicians" %>
         <div class="d-flex justify-content-end">
-          <%= f.button :submit, "→", class: "arrow-btn" %>
+          <%= f.button :submit, "➜", class: "arrow-btn" %>
         </div>
       <% end %>
+
     </div>
   </div>
 </div>
