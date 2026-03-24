@@ -71,7 +71,7 @@ class MessagesController < ApplicationController
   end
 
   def message_params
-    params.require(:message, {}).permit(:content, :role)
+    params.require(:message).permit(:content, :role)
   end
 
   def chat_context

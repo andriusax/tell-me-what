@@ -1,3 +1,20 @@
 textarea {
   resize: none;
 }
+
+.input-overlay-container {
+  position: relative;
+  display: block;
+}
+
+.inner-submit-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 5;
+}
+
+.textarea-with-button {
+  padding-right: 50px;
+  resize: none;
+}
